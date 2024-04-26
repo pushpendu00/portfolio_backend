@@ -1,11 +1,11 @@
-
-
+const messageModel = require('../models/messageModels');
 
 
 module.exports.allMessage = (req,res)=>{
     try {
         return res.send({
-            status : 200
+            status : 200,
+            message : "All messages",
         })
     } catch (error) {
         return res.send({
@@ -17,9 +17,10 @@ module.exports.allMessage = (req,res)=>{
 
 module.exports.add_message = async(req,res)=>{
     try {
-
+        console.log(req.body);
         return res.send({
             status : 200,
+            message : "sucessfully",
         })
     } catch (error) {
         return res.send({
