@@ -26,7 +26,7 @@ module.exports.add_ip_address = async(req,res)=>{
         const isIpPresent = await ipSddressModel.findOne({ip});
 
         if(isIpPresent){
-            await ipSddressModel.findByIdAndUpdate({_id : isIpPresent._id},{
+            let updateIp = await ipSddressModel.findByIdAndUpdate({_id : isIpPresent._id},{
                 $inc : {
                     count : 1,
                 }
@@ -34,18 +34,43 @@ module.exports.add_ip_address = async(req,res)=>{
             return res.send({
                 status : 200,
                 message : "sucessfully",
+                ipDetails : updateIp,
             })
         }
-        const new_sms = new ipSddressModel({
+        const new_ip = new ipSddressModel({
             ip
         });
-        await new_sms.save();
+        let updateIp = await new_ip.save();
         return res.send({
             status : 200,
             message : "sucessfully",
+            ipDetails : updateIp,
         })
     } catch (error) {
         // console.log(error);
+        return res.send({
+            status : 404,
+            message : "Server Error"
+        })
+    }
+}
+
+module.exports.follow_unfollow = async(req,res)=>{
+    try {
+        const {ipAddress,status} = req.body;
+        // console.log(ipAddress);
+        let ipDetails = await ipSddressModel.findOneAndUpdate({ip : ipAddress},{
+            follow : status
+        })
+        let updateIp = await ipSddressModel.findById({_id : ipDetails._id})
+        // console.log("update = ",updateIp);
+        return res.send({
+            status : 200,
+            message : "sucessfully",
+            updateIp
+        })
+    } catch (error) {
+        console.log(error)
         return res.send({
             status : 404,
             message : "Server Error"

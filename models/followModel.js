@@ -7,10 +7,6 @@ const schema = mongoose.Schema(
         ip : {
             type : String
         },
-        count : {
-            type : Number,
-            default : 1
-        },
         follow : {
             type : Boolean,
             default : false
@@ -20,6 +16,6 @@ const schema = mongoose.Schema(
 );
 
 
-const ipSddressModel = new mongoose.model('ipAddress',schema);
+const followModel = new mongoose.model('follow',schema);
 
-module.exports = ipSddressModel;
+module.exports = followModel;
