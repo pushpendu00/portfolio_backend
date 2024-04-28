@@ -30,7 +30,7 @@ module.exports.add_message = async(req,res)=>{
             message : "sucessfully",
         })
     } catch (error) {
-        console.log(error)
+        // console.log(error);
         return res.send({
             status : 404,
             message : "Server Error"
